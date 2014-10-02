@@ -33,11 +33,10 @@ For minted-TeX integration, add this to your custom-set-variables
 `'pytexipy-notebook-run-py-code`, and all code in that block will be
 sent to a ipython kernel and the result will be displayed
 underneath. If on `\inputminted{python}{file.py}` block, code will be
-loaded from script filename between the curly braces.
-
-Results will be placed in `\begin{verbatim}`, `\end{verbatim}` blocks
-right next to the code, with one space in between. If a verbatim blocks
-already exists there, it will be refreshed. If not, it will be added.
+loaded from script filename between the curly braces. Results will be
+placed in `\begin{verbatim}`, `\end{verbatim}` blocks right next to
+the code, with one space in between. If a verbatim blocks already
+exists there, it will be refreshed. If not, it will be added.
 
 * If `plt.show()` is detected in code block, all previous code in
 buffer will be scanned for `plt.savefig(..)` commands. Say there were
