@@ -41,8 +41,10 @@ exists there, it will be refreshed. If not, it will be added.
 * If `plt.show()` is detected in code block, all previous code in
 buffer will be scanned for `plt.savefig(..)` commands. Say there were
 5 of them, in this case `show()` will be replaced with
-`plt.savefig('[file]_6.png')`, and a call to preview-latex will be
-made to refresh buffer.
+`plt.savefig('[file]_6.png')`, an `\includegraphics` LaTeX command
+will be added and a call to preview-latex will be made to refresh
+buffer, so the figure is immediately shown underneath just like in an
+ipython notebook!
 
 * After entering any expression, if you call
 `'pytexipy-notebook-complete-py`, emacs-ipython will show a list of
