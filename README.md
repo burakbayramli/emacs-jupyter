@@ -67,4 +67,9 @@ multiple `'pytexipy-notebook-run-py-code` calls.
   this command is useful for other purposes, such as wanting to clean
   up ipyton memory and starting from scratch, anytime. 
 
+## LICENSE
+
+Emacs IPython is licensed under GPL v3. See COPYING for details.
+  
 ![](emacs-ipython.png)
+
