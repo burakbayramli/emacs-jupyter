@@ -2,13 +2,22 @@
 
 pytexipy-notebook connects to an inprocess ipython kernel, executes
 notebook code, and displays the results automatically in a LaTeX
-buffer.
+buffer. You could easily modify it to work in a text buffer, or a
+markdown buffer.
 
 ## INSTALL
 
-(pymacs-load "/usr/share/emacs23/site-lisp/pytexipy-notebook")
+First install Pymacs - https://github.com/pinard/Pymacs. Build, install.
+
+Install preview-latex for Emacs.
+
+Then in your .emacs, do
+
+```
+(pymacs-load "[PYTEXIPY DIR]/pytexipy-notebook")
 (global-set-key [f1] 'pytexipy-notebook-run-py-code); or choose any key you like
 (global-set-key [f5] 'pytexipy-notebook-complete-py); or choose any key you like
+```
 
 For minted-TeX integration, add this to your custom-set-variables
 '(preview-LaTeX-command (quote ("%`%l -shell-escape \"\\nonstopmode\\nofiles\\PassOptionsToPackage{"
@@ -30,7 +39,8 @@ already exists there, it will be refreshed. If not, it will be added.
 2) If plt.show() is detected in code block, all previous code in
 buffer will be scanned for plt.savefig(..) commands. Say there were 5
 of them, in this case show() will be replaced with
-plt.savefig('[file]_6.png').
+plt.savefig('[file]_6.png'), and a call to preview-latex will be made
+to refresh buffer.
 
 3) After entering any expression, if you call
 'pytexipy-notebook-complete-py, pytexipy will show a list of possible
