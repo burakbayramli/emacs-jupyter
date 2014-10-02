@@ -1,6 +1,6 @@
 ## DESCRIPTION
 
-pytexipy-notebook connects to an inprocess ipython kernel, executes
+emacs-ipython connects to an inprocess ipython kernel, executes
 notebook code, and displays the results automatically in a LaTeX
 buffer. You could easily modify it to work in a text buffer, or a
 markdown buffer.
@@ -43,10 +43,10 @@ plt.savefig('[file]_6.png'), and a call to preview-latex will be made
 to refresh buffer.
 
 3) After entering any expression, if you call
-'pytexipy-notebook-complete-py, pytexipy will show a list of possible
-completions in a *pytexipy* buffer. This list comes directly from
-ipython, hence it reflects the cumulation of runtime code that has
-been executed and brought into memory thusfar through multiple
+'pytexipy-notebook-complete-py, emacs-ipython will show a list of
+possible completions in a *pytexipy* buffer. This list comes directly
+from ipython, hence it reflects the cumulation of runtime code that
+has been executed and brought into memory thusfar through multiple
 'pytexipy-notebook-run-py-code calls.
 
 ## LIMITATIONS
