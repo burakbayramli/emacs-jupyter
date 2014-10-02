@@ -39,7 +39,7 @@ Results will be placed in \begin{verbatim}, \end{verbatim} blocks
 right next to the code, with one space in between. If a verbatim blocks
 already exists there, it will be refreshed. If not, it will be added.
 
-2) If plt.show() is detected in code block, all previous code in
+2) If `plt.show()` is detected in code block, all previous code in
 buffer will be scanned for plt.savefig(..) commands. Say there were 5
 of them, in this case show() will be replaced with
 plt.savefig('[file]_6.png'), and a call to preview-latex will be made
