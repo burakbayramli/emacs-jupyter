@@ -1,10 +1,10 @@
-= DESCRIPTION
+# DESCRIPTION
 
 pytexipy-notebook connects to an inprocess ipython kernel, executes
 notebook code, and displays the results automatically in a LaTeX
 buffer.
 
-= INSTALL
+# INSTALL
 
 (pymacs-load "/usr/share/emacs23/site-lisp/pytexipy-notebook")
 (global-set-key [f1] 'pytexipy-notebook-run-py-code); or choose any key you like
@@ -15,7 +15,7 @@ For minted-TeX integration, add this to your custom-set-variables
 ("," . preview-required-option-list) "}{preview}\\AtBeginDocument{\\ifx\\ifPreview\\undefined"
  preview-default-preamble "\\fi}\"%' %t")))
 
-= FEATURES
+# FEATURES
 
 1) When you are in \begin{minted} and \end{minted} blocks,
 call 'pytexipy-notebook-run-py-code, and all code in that block will
