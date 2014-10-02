@@ -66,4 +66,4 @@ multiple `'pytexipy-notebook-run-py-code` calls.
   initialization. I did not yet hook this up to a buffer load. However
   this command is useful for other
 
-![alt text][emacs-ipython.png]
+![alt text][emacs-ipython]
