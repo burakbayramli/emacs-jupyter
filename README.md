@@ -64,6 +64,7 @@ multiple `'pytexipy-notebook-run-py-code` calls.
 
 * At the start, I have to hit f11 or `'reload-pymacs` to force
   initialization. I did not yet hook this up to a buffer load. However
-  this command is useful for other
+  this command is useful for other purposes, such as wanting to clean
+  up ipyton memory and starting from scratch, anytime. 
 
-![alt text][emacs-ipython]
+![](emacs-ipython.png)
