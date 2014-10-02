@@ -17,6 +17,7 @@ Then in your .emacs, do
 (pymacs-load "[PYTEXIPY DIR]/pytexipy-notebook")
 (global-set-key [f1] 'pytexipy-notebook-run-py-code); or choose any key you like
 (global-set-key [f5] 'pytexipy-notebook-complete-py); or choose any key you like
+(global-set-key [f11] 'reload-pymacs)
 ```
 
 For minted-TeX integration, add this to your custom-set-variables
@@ -26,6 +27,10 @@ For minted-TeX integration, add this to your custom-set-variables
 ("," . preview-required-option-list) "}{preview}\\AtBeginDocument{\\ifx\\ifPreview\\undefined"
  preview-default-preamble "\\fi}\"%' %t")))
  ```
+
+ If you are planning to plot things in your buffer, dont forget to
+ include graphics with `\usepackage{graphicx}`. 
+
 
 ## FEATURES
 
@@ -55,4 +60,10 @@ multiple `'pytexipy-notebook-run-py-code` calls.
 
 ## LIMITATIONS
 
-* For now, there is one kernel per Emacs session. 
+* For now, there is one kernel per Emacs session.
+
+* At the start, I have to hit f11 or `'reload-pymacs` to force
+  initialization. I did not yet hook this up to a buffer load. However
+  this command is useful for other
+
+![alt text][emacs-ipython.png]
