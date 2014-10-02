@@ -20,9 +20,12 @@ Then in your .emacs, do
 ```
 
 For minted-TeX integration, add this to your custom-set-variables
+
+```
 '(preview-LaTeX-command (quote ("%`%l -shell-escape \"\\nonstopmode\\nofiles\\PassOptionsToPackage{"
 ("," . preview-required-option-list) "}{preview}\\AtBeginDocument{\\ifx\\ifPreview\\undefined"
  preview-default-preamble "\\fi}\"%' %t")))
+ ```
 
 ## FEATURES
 
