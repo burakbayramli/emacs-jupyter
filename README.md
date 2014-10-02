@@ -67,4 +67,4 @@ multiple `'pytexipy-notebook-run-py-code` calls.
   this command is useful for other purposes, such as wanting to clean
   up ipyton memory and starting from scratch, anytime. 
 
-![](emacs-ipython.png)
+![](emacs-ipython.png =300x340)
