@@ -72,6 +72,7 @@ def run_py_code():
     line = lisp.buffer_substring(l1,l2)
     # if code comes from file
     if "\\inputminted" in line:
+        block_begin = lisp.point()
         lisp.message(line)
         py_file = re.search("\{python\}\{(.*?)\}", line).groups(1)[0]
         # get code content from file
