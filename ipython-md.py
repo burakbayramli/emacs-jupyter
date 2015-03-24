@@ -66,7 +66,7 @@ def run_py_code():
     remember_where = lisp.point()
     block_begin,block_end,content = get_block_content("```python","```")
 
-    #lisp.message(content)
+    lisp.message(content)
         
     # we have code content at this point
 
@@ -102,25 +102,20 @@ def run_py_code():
         res = res.replace("Populating the interactive namespace from numpy and matplotlib\n","")
         display_results(block_end, res) # display it
     else:
-        display_results(block_end, "") 
         lisp.goto_char(block_end)
-
-    # generate includegraphics command
-    if show_replaced:
         lisp.forward_line(2) # skip over end verbatim, leave one line emtpy
         lisp.insert(include_graphics_command + '\n')
-        #lisp.backward_line_nomark(1) # skip over end verbatim, leave one line emtpy        
         lisp.scroll_up(1) # skip over end verbatim, leave one line emtpy        
         lisp.goto_char(remember_where)
         lisp.replace_string("plt.show()",rpl,None,block_begin,block_end)
         
     lisp.goto_char(remember_where)
-    if "plt.savefig" in content: lisp.preview_buffer()
     
     lisp.message("Ran in " + str(elapsed) + " seconds")
 
-def verb_exists():
+def verb_exists(end_block):
     remem = lisp.point()
+    lisp.goto_char(end_block)
     lisp.forward_line(2)
     lisp.beginning_of_line()
     verb_line_b = lisp.point()
@@ -128,32 +123,28 @@ def verb_exists():
     verb_line_e = lisp.point()
     verb_line = lisp.buffer_substring(verb_line_b, verb_line_e)
     lisp.goto_char(remem)
-    if "```text" in verb_line: return True
-    else: return False
+    if '```text' in verb_line:
+        lisp.message("found")
+        return True
+    else:
+        lisp.message('not found')
+        return False
     
 def display_results(end_block, res):
     remem = lisp.point()
-    res=res.replace("\r","")
+    if verb_exists(end_block):
+        lisp.forward_line(2)
+        lisp.search_forward("`````"); lisp.end_of_line(); block_end = lisp.point()
+        lisp.search_backward("```text"); lisp.beginning_of_line(); block_begin = lisp.point()
+        lisp.delete_region(block_begin, block_end)
+        
     lisp.goto_char(end_block)
-    verb_begin = None
-    # if there is output block, remove it whether there output or not
-    # because it will be replaced anyway if something exists
-    if verb_exists():
-        verb_begin,verb_end,content = get_block_content("```text","```")
-        lisp.delete_region(verb_begin, verb_end)
-        lisp.goto_char(remem)
-
-    # now if there _is_ output, then go to beginning of old verbatim
-    # output (if removed), if not, this is brand new output, move
-    # down 2 lines, insert the output 
-    if res and len(res) > 0:
-        if verb_begin:
-            lisp.goto_char(verb_begin)
-        else:
-            lisp.forward_line(2)
-        lisp.insert("```text\n")
-        lisp.insert(res)
-        lisp.insert("```")
+    lisp.forward_line(2)
+    lisp.insert("```text\n")
+    lisp.insert(res)
+    lisp.insert("`````")
+    
+    lisp.goto_char(remem)
 
 def thing_at_point():
     right_set = left_set = set(['\n',' '])
