@@ -6,11 +6,13 @@ Markdown buffer.
 
 ## INSTALLATION for Markdown
 
+First install Pymacs - https://github.com/pinard/Pymacs. Build, install.
+
 Install grip if you want to generate html out of your markdown.  Then
 in your .emacs, do
 
 ```
-(pymacs-load "[PYTEXIPY DIR]/ipython-tex")
+(pymacs-load "[PYTEXIPY DIR]/ipython-md")
 (global-set-key [f1] 'ipython-md-run-py-code); or choose any key you like
 (global-set-key [f11] 'reload-pymacs)
 ```
