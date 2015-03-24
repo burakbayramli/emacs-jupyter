@@ -1,11 +1,27 @@
 ## DESCRIPTION
 
 emacs-ipython connects to an inprocess ipython kernel, executes
-notebook code, and displays the results automatically in a LaTeX
-buffer. You could easily modify it to work in a text buffer, or a
-markdown buffer.
+notebook code, and displays the results automatically in a LaTeX or
+Markdown buffer. 
 
-## INSTALL
+## INSTALLATION for Markdown
+
+Install grip if you want to generate html out of your markdown.  Then
+in your .emacs, do
+
+```
+(pymacs-load "[PYTEXIPY DIR]/ipython-tex")
+(global-set-key [f1] 'ipython-md-run-py-code); or choose any key you like
+(global-set-key [f11] 'reload-pymacs)
+```
+
+Now you can
+
+```
+grip test.md --export out.html
+```
+
+## INSTALLATION for LaTeX
 
 First install Pymacs - https://github.com/pinard/Pymacs. Build, install.
 
@@ -14,9 +30,9 @@ Install preview-latex for Emacs.
 Then in your .emacs, do
 
 ```
-(pymacs-load "[PYTEXIPY DIR]/pytexipy-notebook")
-(global-set-key [f1] 'pytexipy-notebook-run-py-code); or choose any key you like
-(global-set-key [f5] 'pytexipy-notebook-complete-py); or choose any key you like
+(pymacs-load "[PYTEXIPY DIR]/ipython-tex")
+(global-set-key [f1] 'ipython-tex-run-py-code); or choose any key you like
+(global-set-key [f5] 'ipython-tex-complete-py); or choose any key you like
 (global-set-key [f11] 'reload-pymacs)
 ```
 
