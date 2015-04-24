@@ -1,49 +1,28 @@
-from __future__ import print_function
-from StringIO import StringIO
-from IPython.kernel.inprocess.blocking import BlockingInProcessKernelClient
-from IPython.kernel.inprocess.manager import InProcessKernelManager
-from IPython.kernel.inprocess.ipkernel import InProcessKernel
-from IPython.core.interactiveshell import InteractiveShell
-from IPython.utils.io import capture_output
-
 from Pymacs import lisp
 import re, sys, time, os
 interactions = {}
 kernels = {}
 
+from IPython.testing.globalipapp import get_ipython
+from IPython.utils.io import capture_output
+
+from IPython.kernel.inprocess.manager import InProcessKernelManager
+km = InProcessKernelManager()
+
+ip = get_ipython()
+
+def run_cell(cmd):
+    with capture_output() as io:
+        res = ip.run_cell(cmd)
+    res_out = io.stdout
+    return res_out
+
+ip.run_cell('import matplotlib.pylab as plt')
+ip.run_cell('%load_ext autoreload')        
+ip.run_cell('%autoreload 2')    
+
 # make digits into length two - i.e. 1 into 01
 def two_digit(i): return "0"+str(i) if i < 10 else str(i)
-
-def decorated_run_code(fn):
-    def new_run_code(*args, **kwargs):
-        res = fn(*args, **kwargs)
-        setattr(args[0], "last_known_outflag", res)
-        return res
-    return new_run_code
-
-# wrapping run_code method inside InteractiveShell, we trap the return
-# code here which is 1 for failure, 0 for good, there was no other
-# way to sense an error for its callers. _get_exc_info is no good,
-# because it will keep returning the same errors until the next error
-# resets its state. 
-InteractiveShell.run_code = decorated_run_code(InteractiveShell.run_code)    
-
-def get_kernel_pointer(buffer):
-    lisp.message("getting kernel for " + buffer)
-    if buffer not in kernels:
-        lisp.message("creating new " + buffer)
-        km = InProcessKernelManager()
-        km.start_kernel()
-        kc = BlockingInProcessKernelClient(kernel=km.kernel)
-        kc.start_channels()
-        kernel = InProcessKernel()
-        kernels[buffer] = (kc,kernel,kernel.shell.get_ipython())
-        # run this so that plt, np pointers are ready
-        kc.shell_channel.execute('%pylab inline')
-        kc.shell_channel.execute('%load_ext autoreload')        
-        kc.shell_channel.execute('%autoreload 2')
-
-    return kernels[buffer]
 
 def get_block_content(start_tag, end_tag):
     remember_where = lisp.point()
@@ -105,23 +84,15 @@ def run_py_code():
     content=content.replace("plt.show()",rpl)
     include_graphics_command = "\\includegraphics[height=6cm]{%s}" % f
 
-    (kc,kernel,ip) = get_kernel_pointer(lisp.buffer_name())
+    #(ip) = get_kernel_pointer(lisp.buffer_name())
     start = time.time()
-    res = ''
+    
     with capture_output() as io:
-        ip.run_cell(content)
+        res_code = ip.run_cell(content)
     res = io.stdout
-    if kernel.shell.last_known_outflag:
-        etype, value, tb = kernel.shell._get_exc_info()
-        res = str(etype) + " " + str(value)  + "\n"        
+
     elapsed = (time.time() - start)
-    # replace this unnecessary message so output becomes blank
-    if res and len(res) > 0:  # if result not empty
-        res = res.replace("Populating the interactive namespace from numpy and matplotlib\n","")
-        display_results(block_end, res) # display it
-    else:
-        display_results(block_end, "") 
-        lisp.goto_char(block_end)
+    display_results(block_end, res) # display it
 
     # generate includegraphics command
     if show_replaced:
