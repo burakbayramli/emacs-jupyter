@@ -46,8 +46,6 @@ def run_py_code():
     remember_where = lisp.point()
     block_begin,block_end,content = get_block_content("```python","```")
 
-    lisp.message(content)
-        
     # we have code content at this point
 
     # scan content to find plt.plot(). if there is, scan buffer
