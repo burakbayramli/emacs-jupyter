@@ -85,6 +85,12 @@ multiple `'pytexipy-notebook-run-py-code` calls.
   this command is useful for other purposes, such as wanting to clean
   up ipyton memory and starting from scratch, anytime. 
 
+## Anaconda Problems
+
+Anaconda installation can cause problems for Pymacs. See here
+
+http://stackoverflow.com/questions/29847966/pymacs-cannot-find-packages-on-anaconda
+  
 ## LICENSE
 
 Emacs IPython is licensed under GPL v3. See COPYING for details.
