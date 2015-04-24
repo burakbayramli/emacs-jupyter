@@ -24,14 +24,13 @@ ip.run_cell('%autoreload 2')
 # make digits into length two - i.e. 1 into 01
 def two_digit(i): return "0"+str(i) if i < 10 else str(i)
 
-
 def get_block_content(start_tag, end_tag):
     remember_where = lisp.point()
     block_end = lisp.search_forward(end_tag)
     block_begin = lisp.search_backward(start_tag)
     content = lisp.buffer_substring(block_begin, block_end)
-    content = re.sub("```python","",content)
-    content = re.sub("```","",content)
+    content = re.sub(start_tag, "", content)
+    content = re.sub(end_tag, "", content)
     lisp.goto_char(remember_where)
     return block_begin, block_end, content
 
@@ -44,7 +43,15 @@ def get_buffer_content_prev(bend):
 
 def run_py_code():
     remember_where = lisp.point()
-    block_begin,block_end,content = get_block_content("```python","```")
+    # check if the line contains \inputminted
+    lisp.beginning_of_line()
+    l1 = lisp.point()
+    lisp.end_of_line()
+    l2 = lisp.point()
+    line = lisp.buffer_substring(l1,l2)
+    # if code comes from file
+    # get code content from latex
+    block_begin,block_end,content = get_block_content("```python","```\n")
 
     # we have code content at this point
 
@@ -64,60 +71,64 @@ def run_py_code():
     show_replaced = True if "plt.show()" in content else False
     content=content.replace("plt.show()",rpl)
     include_graphics_command = "![](%s)" % f
-
+    
+    # we have code content at this point
     start = time.time()
-
+    
     with capture_output() as io:
         res_code = ip.run_cell(content)
     res = io.stdout
-    
+
     elapsed = (time.time() - start)
-    # replace this unnecessary message so output becomes blank
-    if res and len(res) > 0:  # if result not empty
-        res = res.replace("Populating the interactive namespace from numpy and matplotlib\n","")
-        display_results(block_end, res) # display it
-    elif show_replaced:
+    display_results(block_end, res) # display it
+
+    if show_replaced:
         lisp.goto_char(block_end)
         lisp.forward_line(2) # skip over end verbatim, leave one line emtpy
         lisp.insert(include_graphics_command + '\n')
         lisp.scroll_up(1) # skip over end verbatim, leave one line emtpy        
         lisp.goto_char(remember_where)
         lisp.replace_string("plt.show()",rpl,None,block_begin,block_end)
-        
+
+    
     lisp.goto_char(remember_where)
     
     lisp.message("Ran in " + str(elapsed) + " seconds")
 
-def verb_exists(end_block):
+def verb_exists():
     remem = lisp.point()
-    lisp.goto_char(end_block)
-    lisp.forward_line(2)
+    lisp.forward_line(1)
     lisp.beginning_of_line()
     verb_line_b = lisp.point()
     lisp.end_of_line()
     verb_line_e = lisp.point()
     verb_line = lisp.buffer_substring(verb_line_b, verb_line_e)
     lisp.goto_char(remem)
-    if '```text' in verb_line:
-        return True
-    else:
-        return False
+    if "```text" in verb_line: return True
+    else: return False
     
 def display_results(end_block, res):
     remem = lisp.point()
-    if verb_exists(end_block):
-        lisp.forward_line(2)
-        lisp.search_forward("`````"); lisp.end_of_line(); block_end = lisp.point()
-        lisp.search_backward("```text"); lisp.beginning_of_line(); block_begin = lisp.point()
-        lisp.delete_region(block_begin, block_end)
-        
+    res=res.replace("\r","")
     lisp.goto_char(end_block)
-    lisp.forward_line(2)
+    verb_begin = None
+    # if there is output block, remove it whether there output or not
+    # because it will be replaced anyway if something exists
+    if verb_exists():
+        verb_begin,verb_end,content = get_block_content("```text","```\n")
+        lisp.delete_region(verb_begin, verb_end)
+        lisp.goto_char(remem)
+
+    # now if there _is_ output, then go to beginning of old verbatim
+    # output (if removed), if not, this is brand new output, move
+    # down 2 lines, insert the output 
+    if verb_begin:
+        lisp.goto_char(verb_begin)
+    else:
+        lisp.forward_line(2)
     lisp.insert("```text\n")
     lisp.insert(res)
-    lisp.insert("`````")
-    
-    lisp.goto_char(remem)
+    lisp.insert("```\n")
 
 def thing_at_point():
     right_set = left_set = set(['\n',' '])
@@ -137,5 +148,6 @@ def thing_at_point():
         
     s = lisp.buffer_substring(start, end)
     return s, end
-
+        
+            
 interactions[run_py_code] = ''
