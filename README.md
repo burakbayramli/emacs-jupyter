@@ -1,8 +1,8 @@
 ## DESCRIPTION
 
-emacs-ipython connects to an inprocess ipython kernel, executes
-notebook code, and displays the results automatically in a LaTeX or
-Markdown buffer. 
+emacs-ipython connects to an inprocess ipython / Jupyter kernel,
+executes notebook code, and displays the results automatically in a
+LaTeX or Markdown buffer.
 
 ## INSTALLATION for Markdown
 
