@@ -81,7 +81,7 @@ def run_py_code():
     rpl = "plt.savefig('%s')" % f
     show_replaced = True if "plt.show()" in content else False
     content=content.replace("plt.show()",rpl)
-    content="plt.figure();\n"+content
+    content="plt.figure()\n"+content
     include_graphics_command = "\\includegraphics[height=6cm]{%s}" % f
 
     #(ip) = get_kernel_pointer(lisp.buffer_name())
