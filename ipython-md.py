@@ -1,26 +1,25 @@
 from Pymacs import lisp
-import re, sys, time, os
+import re, time, os
+
 interactions = {}
-kernels = {}
 
 from IPython.testing.globalipapp import get_ipython
 from IPython.utils.io import capture_output
 
-from IPython.kernel.inprocess.manager import InProcessKernelManager
-km = InProcessKernelManager()
-
-ip = get_ipython()
+@memo
+def get_ip():
+    ip = get_ipython()
+    ip.run_cell('%load_ext autoreload')        
+    ip.run_cell('%autoreload 2')    
+    ip.run_cell('import numpy as np')
+    ip.run_cell('import matplotlib.pylab as plt')
+    return ip
 
 def run_cell(cmd):
     with capture_output() as io:
-        res = ip.run_cell(cmd)
+        res = get_ip().run_cell(cmd)
     res_out = io.stdout
     return res_out
-
-ip.run_cell('import numpy as np')
-ip.run_cell('import matplotlib.pylab as plt')
-ip.run_cell('%load_ext autoreload')        
-ip.run_cell('%autoreload 2')    
 
 # make digits into length two - i.e. 1 into 01
 def two_digit(i): return "0"+str(i) if i < 10 else str(i)
@@ -78,7 +77,7 @@ def run_py_code():
     start = time.time()
     
     with capture_output() as io:
-        res_code = ip.run_cell(content)
+        res_code = get_ip().run_cell(content)
     res = io.stdout
 
     elapsed = (time.time() - start)
@@ -156,7 +155,7 @@ def thing_at_point():
 def complete_py():
     thing, start = thing_at_point()
     lisp.message(thing)
-    text, matches = ip.complete(thing)
+    text, matches = get_ip().complete(thing)
     lisp.switch_to_buffer("*pytexipy*")
     lisp.kill_buffer(lisp.get_buffer("*pytexipy*"))
     lisp.switch_to_buffer_other_window("*pytexipy*")
