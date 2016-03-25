@@ -77,7 +77,7 @@ def run_py_code():
     # generate savefig for execution code (no output in emacs yet)
     bc = lisp.buffer_string()
     plt_count_before = len(re.findall('plt\.savefig\(',bc))
-    base = os.path.splitext(lisp.buffer_name())[0]
+            base = os.path.splitext(lisp.buffer_name())[0]
     f = '%s_%s.png' % (base, two_digit(plt_count_before+1))
     rpl = "plt.savefig('%s')" % f
     show_replaced = True if "plt.show()" in content else False
@@ -104,7 +104,7 @@ def run_py_code():
         lisp.replace_string("plt.show()",rpl,None,block_begin,block_end)
         
     lisp.goto_char(remember_where)
-    if "plt.savefig" in content: lisp.preview_buffer()
+    #if "plt.savefig" in content: lisp.preview_buffer()
     
     lisp.message("Ran in " + str(elapsed) + " seconds")
 
