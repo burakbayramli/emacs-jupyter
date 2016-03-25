@@ -5,6 +5,7 @@ interactions = {}
 
 from IPython.testing.globalipapp import get_ipython
 from IPython.utils.io import capture_output
+from memo import *
 
 @memo
 def get_ip():
