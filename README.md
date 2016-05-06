@@ -6,7 +6,8 @@ LaTeX or Markdown buffer.
 
 ## INSTALLATION 
 
-First install Pymacs - https://github.com/pinard/Pymacs. Build, install.
+First install Pymacs - https://github.com/pinard/Pymacs. Build,
+install. In your .emacs add,
 
 ```
 (defun reload-pymacs()
