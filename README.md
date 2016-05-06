@@ -7,7 +7,10 @@ LaTeX or Markdown buffer.
 ## INSTALLATION 
 
 First install Pymacs - https://github.com/pinard/Pymacs. Build,
-install. In your .emacs add,
+install. In your .emacs add the snippet below. The code can seem
+excessive, but the extra stuff was needed to be able to detect if I am
+in an .md or .tex buffer so we can load the right module, also set the
+right tempo template functions. 
 
 ```
 (defun reload-pymacs()
@@ -46,6 +49,7 @@ install. In your .emacs add,
 
   )
 
+(global-set-key [f1] 'tempo-template-tex-listings-python)
 (global-set-key [f11] 'reload-pymacs)
 ```
 
