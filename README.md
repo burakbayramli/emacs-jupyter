@@ -69,13 +69,13 @@ already exists there, it will be refreshed. If not, it will be added.
 from script filename between the curly braces. Results outputted as
 described above.
 
-* If `plt.show()` is detected in code block, all previous code in
-buffer will be scanned for `plt.savefig(..)` commands. Say there were
-5 of them, in this case `show()` will be replaced with
-`plt.savefig('[file]_6.png')`, an `\includegraphics` LaTeX command
-will be added and a call to preview-latex will be made to refresh
-buffer, so the figure is immediately shown underneath just like in an
-ipython notebook!
+* If `plt.show()` is detected in code block, it will be replaced with
+`plt.savefig(..)` command and a `\includegraphics` LaTeX command will
+be added in the TeX buffer, same for Markdown. How do we determine
+which image file name to generate? All previous code in buffer is
+scanned for `plt.savefig(..)` commands, say there were 5 of them, in
+this case `show()` will be replaced with
+`plt.savefig('[file]_6.png')`,
 
 * After entering any expression, hit F-5 or call
 `'ipython-tex-complete-py`, and emacs-ipython will show a list of
