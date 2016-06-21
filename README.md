@@ -1,6 +1,6 @@
 ## DESCRIPTION
 
-emacs-ipython connects to an inprocess ipython / Jupyter kernel,
+emacs-ipython connects to an in-process ipython / Jupyter kernel,
 executes notebook code, and displays the results automatically in a
 LaTeX or Markdown buffer.
 
@@ -97,7 +97,7 @@ multiple `'ipython-tex-run-py-code` calls.
   well such as wanting to clean up ipyton memory and starting from
   scratch, anytime.
 
-*  Markdown and LaTeX versions of the can use some refactoring. 
+*  Markdown and LaTeX versions of the code can use some refactoring. 
 
 ## Anaconda Problems
 
