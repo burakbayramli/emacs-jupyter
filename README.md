@@ -70,9 +70,10 @@ template functions.
 
 For better management create a virtualenv environment, pip install the
 necessary packages from there, install pymacs on it, then start emacs
-with
+with the bash script below,
 
 ```
+#!/bin/bash
 source /some/dir/yourenv/bin/activate
 /usr/bin/emacs24
 ```
