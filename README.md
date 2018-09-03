@@ -17,6 +17,7 @@ Then pip install
 
 ```
 ipython
+matplotlib
 mock
 zmq
 ```
