@@ -7,7 +7,11 @@ LaTeX or Markdown buffer.
 ## INSTALLATION 
 
 First install Pymacs - https://github.com/pinard/Pymacs. Build,
-install.
+install. In your .emacs
+
+``
+(load-file "[PYMACS DIR]/pymacs.el")
+```
 
 Then pip install
 
@@ -62,6 +66,17 @@ template functions.
 (global-set-key [f1] 'tempo-template-tex-listings-python)
 (global-set-key [f11] 'reload-pymacs)
 ```
+
+For better management create a virtualenv environment, pip install the
+necessary packages from there, install pymacs on it, then start emacs
+with
+
+```
+source /some/dir/yourenv/bin/activate
+/usr/bin/emacs24
+```
+
+Grip
 
 Install grip if you want to generate html out of your markdown.
 
