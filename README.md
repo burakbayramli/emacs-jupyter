@@ -9,7 +9,7 @@ LaTeX or Markdown buffer.
 First install Pymacs - https://github.com/pinard/Pymacs. Build,
 install. In your .emacs
 
-``
+```
 (load-file "[PYMACS DIR]/pymacs.el")
 ```
 
