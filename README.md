@@ -126,12 +126,6 @@ multiple `'ipython-tex-run-py-code` calls.
   scratch, anytime.
 
 *  Markdown and LaTeX versions of the code can use some refactoring. 
-
-## Anaconda Problems
-
-Anaconda installation can cause problems for Pymacs. See here
-
-http://stackoverflow.com/questions/29847966/pymacs-cannot-find-packages-on-anaconda
   
 ## LICENSE
 
