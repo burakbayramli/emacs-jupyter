@@ -104,10 +104,10 @@ described above.
 * If `plt.show()` is detected in code block, it will be replaced with
 `plt.savefig(..)` command and a `\includegraphics` LaTeX command will
 be added in the TeX buffer, same for Markdown. How do we determine
-which image file name to generate? All previous code in buffer is
-scanned for `plt.savefig(..)` commands, say there were 5 of them, in
-this case `show()` will be replaced with
-`plt.savefig('[file]_6.png')`,
+which image file name to generate? All previous image files with png
+extension are searched, e.g. if `test_01.png`, `test_02.png` exist,
+the new file will be the last one in the list plus 1, so in this case
+`show()` will be replaced with `plt.savefig('test_03.png')`,
 
 * After entering any expression, hit F-5 or call
 `'ipython-tex-complete-py`, and emacs-ipython will show a list of
