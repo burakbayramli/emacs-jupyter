@@ -78,15 +78,6 @@ source /some/dir/yourenv/bin/activate
 /usr/bin/emacs24
 ```
 
-Grip
-
-Install grip if you want to generate html out of your markdown.
-
-
-```
-grip test.md --export out.html
-```
-
 ## FEATURES
 
 * When you are in `\begin{minted}` and `\end{minted}` blocks, or its
