@@ -1,8 +1,8 @@
 ## DESCRIPTION
 
-emacs-ipython connects to an in-process ipython / Jupyter kernel,
-executes notebook code, and displays the results automatically in a
-LaTeX or Markdown buffer.
+emacs-jupyter connects to an in-process jupyter kernel, executes
+notebook code, and displays the results automatically in a LaTeX or
+Markdown buffer.
 
 ## INSTALLATION 
 
@@ -120,7 +120,7 @@ multiple `'ipython-tex-run-py-code` calls.
   
 ## LICENSE
 
-Emacs IPython is licensed under GPL v3. See COPYING for details.
+Emacs Jupyter is licensed under GPL v3. See COPYING for details.
   
 ![](emacs-ipython.png)
 
