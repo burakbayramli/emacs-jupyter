@@ -18,8 +18,6 @@ Then pip install
 ```
 ipython
 matplotlib
-mock
-zmq
 ```
 
 In your .emacs add the snippet below. The code can seem excessive, but
