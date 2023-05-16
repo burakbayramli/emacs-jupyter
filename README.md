@@ -116,6 +116,14 @@ multiple `'ipython-tex-run-py-code` calls.
 
 *  Markdown and LaTeX versions of the code can use some refactoring. 
   
+## Other Links
+
+Take a look at our other sites
+
+[IT](https://burakbayramli.github.io/dersblog/sk)
+
+[Science, Mathematics](https://burakbayramli.github.io/dersblog)
+
 ## LICENSE
 
 Emacs Jupyter is licensed under GPL v3. See COPYING for details.
