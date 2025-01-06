@@ -18,6 +18,8 @@ Then pip install
 ```
 ipython
 matplotlib
+pytest
+setuptools
 ```
 
 In your .emacs add the snippet below. The code can seem excessive, but
